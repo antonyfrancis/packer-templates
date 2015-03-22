@@ -2,4 +2,4 @@
 Packer templates used in automation
 
 Templates included:
-# Ubuntu trusty base image for docker
+* Ubuntu trusty base image 

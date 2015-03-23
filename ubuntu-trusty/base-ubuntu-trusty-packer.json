@@ -40,10 +40,10 @@
 				"echo '{{user `password`}}' | sudo apt-get update",
 				"sudo apt-get install curl -y",
 				"sudo apt-get install git autoconf libtool automake build-essential mono-devel gettext",
-				"sudo wget https://github.com/mono/mono/archive/mono-3.12.1.tar.gz",
-				"sudo tar xvf mono-3.12.1.tar.gz",
-				"sudo cd mono-mono-3.12.1",
-				"sudo ./autogen.sh --prefix=/usr/local"
+				"sudo http://download.mono-project.com/sources/mono/mono-3.12.1.tar.bz2",
+				"sudo tar xvf mono-3.12.1.tar.bz2",
+				"sudo cd mono-3.12.1",
+				"sudo ./configure --prefix=/usr/local"
 				"sudo make",
 				"sudo make install"
 			]

@@ -1,0 +1,52 @@
+{
+	"variables": 
+	{
+		"username": "packer",
+		"password": "packer"
+	},
+	"builders": 
+	[
+		{
+		  "type": "virtualbox-iso",
+		  "guest_os_type": "Ubuntu_64",
+		  "iso_url": "C:\\Work\\Downloads\\ubuntu-14.04.1-server-amd64-trusty.iso",
+		  "iso_checksum_type": "none",
+		  "ssh_username": "{{user `username`}}",
+		  "ssh_password": "{{user `password`}}",
+		  "ssh_wait_timeout": "3000s",
+		  "disk_size": 8000,
+		  "shutdown_command": "echo '{{user `password`}}' | sudo -S shutdown -P now",
+		  "http_directory": "http",
+		  "boot_command":
+			[
+			  "<esc><esc><enter><wait>",
+			  "/install/vmlinuz noapic ",
+			  "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+			  "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+			  "hostname={{ .Name }} ",
+			  "fb=false debconf/frontend=noninteractive ",
+			  "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
+			  "keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+			  "initrd=/install/initrd.gz -- <enter>"
+			]
+		}	
+	],
+	"provisioners":
+	[
+		{
+			"type": "shell",
+			"inline":
+			[
+				"echo '{{user `password`}}' | sudo apt-get update",
+				"sudo apt-get install curl -y",
+				"sudo apt-get install git autoconf libtool automake build-essential mono-devel gettext",
+				"sudo wget https://github.com/mono/mono/archive/mono-3.12.1.tar.gz",
+				"sudo tar xvf mono-3.12.1.tar.gz",
+				"sudo cd mono-mono-3.12.1",
+				"sudo ./autogen.sh --prefix=/usr/local"
+				"sudo make",
+				"sudo make install"
+			]
+		}
+	]
+}

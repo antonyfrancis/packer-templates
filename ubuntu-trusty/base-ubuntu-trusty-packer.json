@@ -9,7 +9,7 @@
 		{
 		  "type": "virtualbox-iso",
 		  "guest_os_type": "Ubuntu_64",
-		  "iso_url": "C:\\Work\\Downloads\\ubuntu-14.04.1-server-amd64-trusty.iso",
+		  "iso_url": "iso\\ubuntu-14.04.1-server-amd64-trusty.iso",
 		  "iso_checksum_type": "none",
 		  "ssh_username": "{{user `username`}}",
 		  "ssh_password": "{{user `password`}}",
@@ -37,13 +37,13 @@
 			"type": "shell",
 			"inline":
 			[
-				"echo '{{user `password`}}' | sudo apt-get update",
+				"echo '{{user `password`}}' | sudo apt-get update -y",
 				"sudo apt-get install curl -y",
-				"sudo apt-get install git autoconf libtool automake build-essential mono-devel gettext",
+				"sudo apt-get install git autoconf libtool automake build-essential mono-devel gettext -y",
 				"sudo http://download.mono-project.com/sources/mono/mono-3.12.1.tar.bz2",
 				"sudo tar xvf mono-3.12.1.tar.bz2",
 				"sudo cd mono-3.12.1",
-				"sudo ./configure --prefix=/usr/local"
+				"sudo ./configure --prefix=/usr/local",
 				"sudo make",
 				"sudo make install"
 			]
